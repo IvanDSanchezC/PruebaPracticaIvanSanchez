@@ -13,14 +13,14 @@ export class SocioService {
 
   async findAll(): Promise<SocioEntity[]> {
     return await this.socioRepository.find({
-      relations: ['clubes'],
+      relations: ['clubs'],
     });
   }
 
   async findOne(id: string): Promise<SocioEntity> {
     const socio: SocioEntity = await this.socioRepository.findOne({
       where: { id },
-      relations: ['clubes'],
+      relations: ['clubs'],
     });
     if (!socio)
       throw new BusinessLogicException(

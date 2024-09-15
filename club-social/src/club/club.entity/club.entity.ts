@@ -19,7 +19,7 @@ export class ClubEntity {
   @Column({ type: 'varchar', length: 100 })
   descripcion: string;
 
-  @ManyToMany(() => SocioEntity, (socio) => socio.clubes)
+  @ManyToMany(() => SocioEntity, (socio) => socio.clubs)
   @JoinTable()
   socios: SocioEntity[];
 }

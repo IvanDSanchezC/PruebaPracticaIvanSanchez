@@ -71,7 +71,7 @@ describe('SocioService', () => {
       nombre: faker.lorem.words(3),
       correo: faker.internet.email(),
       fecha: faker.date.past().toISOString(),
-      clubes: [
+      clubs: [
         Object.assign(new ClubEntity(), {
           nombre: faker.lorem.words(3),
           fecha: faker.date.past().toISOString(),

@@ -10,7 +10,7 @@ import { SocioEntity } from '../socio/socio.entity/socio.entity';
 describe('ClubService', () => {
   let service: ClubService;
   let repository: Repository<ClubEntity>;
-  let clubesList: ClubEntity[];
+  let clubsList: ClubEntity[];
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -27,7 +27,7 @@ describe('ClubService', () => {
 
   const seedDatabase = async () => {
     repository.clear();
-    clubesList = [];
+    clubsList = [];
     for (let i = 0; i < 5; i++) {
       const club: ClubEntity = await repository.save({
         nombre: faker.lorem.words(3),
@@ -35,7 +35,7 @@ describe('ClubService', () => {
         imagen: faker.image.url(),
         descripcion: faker.lorem.sentence(10), 
       });
-      clubesList.push(club);
+      clubsList.push(club);
     }
   };
 
@@ -43,14 +43,14 @@ describe('ClubService', () => {
     expect(service).toBeDefined();
   });
 
-  it('findAll should return all clubes', async () => {
-    const clubes: ClubEntity[] = await service.findAll();
-    expect(clubes).not.toBeNull();
-    expect(clubes).toHaveLength(clubesList.length);
+  it('findAll should return all clubs', async () => {
+    const clubs: ClubEntity[] = await service.findAll();
+    expect(clubs).not.toBeNull();
+    expect(clubs).toHaveLength(clubsList.length);
   });
 
   it('findOne should return a club by id', async () => {
-    const storedclub: ClubEntity = clubesList[0];
+    const storedclub: ClubEntity = clubsList[0];
     const club: ClubEntity = await service.findOne(storedclub.id);
     expect(club).not.toBeNull();
     expect(club.nombre).toEqual(storedclub.nombre);
@@ -96,7 +96,7 @@ describe('ClubService', () => {
   });
 
   it('update should modify a club', async () => {
-    const club: ClubEntity = clubesList[0];
+    const club: ClubEntity = clubsList[0];
     club.nombre = 'Nuevo nombre';
     club.fecha = 'Nueva fecha';
 
@@ -112,7 +112,7 @@ describe('ClubService', () => {
   });
 
   it('update should throw an exception for an invalid club', async () => {
-    let club: ClubEntity = clubesList[0];
+    let club: ClubEntity = clubsList[0];
     club = {
       ...club,
       nombre: 'nuevo nombre',
@@ -125,7 +125,7 @@ describe('ClubService', () => {
   });
 
   it('delete should remove a club', async () => {
-    const club: ClubEntity = clubesList[0];
+    const club: ClubEntity = clubsList[0];
     await service.delete(club.id);
 
     const deletedclub: ClubEntity = await repository.findOne({
@@ -135,7 +135,7 @@ describe('ClubService', () => {
   });
 
   it('delete should throw an exception for an invalid club', async () => {
-    const club: ClubEntity = clubesList[0];
+    const club: ClubEntity = clubsList[0];
     await service.delete(club.id);
     await expect(() => service.delete('0')).rejects.toHaveProperty(
       'message',

@@ -180,9 +180,10 @@ describe('ClubSocioService', () => {
       fecha: faker.date.past().toISOString(),
     });
 
-    const updatedClub: ClubEntity = await service.updateMembersFromClub(club.id, [
-      newSocio,
-    ]);
+    const updatedClub: ClubEntity = await service.updateMembersFromClub(
+      club.id,
+      [newSocio],
+    );
     expect(updatedClub.socios.length).toBe(1);
 
     expect(updatedClub.socios[0].nombre).toBe(newSocio.nombre);
